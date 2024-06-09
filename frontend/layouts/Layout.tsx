@@ -1,0 +1,22 @@
+import React from "react";
+import Header from "../src/components/Header";
+import Hero from "../src/components/Hero";
+import Footer from "../src/components/Footer";
+
+interface Props {  //interface for children component
+    children: React.ReactNode;
+}
+
+const Layout = ({children}: Props) =>{
+    return (
+        
+          <div className="flex flex-col min-h-screen">
+            <Header/>
+            <Hero/>
+            <div className="container mx-auto py-10 flex-1">{children}</div>
+            <Footer/>
+          </div>
+        
+    )
+}
+export default Layout;
