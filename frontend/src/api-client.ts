@@ -42,7 +42,10 @@ export const signIn = async (FormData:SignInFormData)=>{
 export const validateToken = async () => {
     try {
         const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
-            credentials: 'include'
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
 
         if (!response.ok) {
@@ -54,9 +57,35 @@ export const validateToken = async () => {
 
         return response.json();
     } catch (error: any) {
-        throw new Error(error.message);
+        throw new Error(error.message  || 'An unknown error occurred');
     }
 };
+
+// Function to fetch with token, refresh if needed
+// export const fetchWithToken = async (url: string, options: RequestInit) => {
+//     let response = await fetch(url, options);
+  
+//     if (response.status === 401) {
+//       const refreshResponse = await fetch(`${API_BASE_URL}/api/auth/refresh-token`, {
+//         method: 'POST',
+//         credentials: 'include',
+//       });
+  
+//       if (refreshResponse.ok) {
+//         const data = await refreshResponse.json();
+//         const newToken = data.token;
+  
+//         // Retry the original request with the new token
+//         options.headers = {
+//           ...options.headers,
+//           'Authorization': `Bearer ${newToken}`,
+//         };
+//         response = await fetch(url, options);
+//       } else {
+//         window.location.href = '/login';
+//       }
+//     }
+//   };
 
 
 
@@ -71,48 +100,25 @@ export const signOut = async () =>{
     }
 };
 
-// for request OTP
-export const requestOtp = async ({ email, phoneNumber }: { email: string; phoneNumber: string }) => {
-    try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/request-otp`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, phoneNumber })
-        });
-
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
-            const responseBody = await response.json();
-            if (!response.ok) {
-                throw new Error(responseBody.message);
-            }
-            return responseBody;
-        } else {
-            throw new Error("Server returned non-JSON response");
-        }
-    } catch (error: any) {
-        throw new Error(error.message);
-    }
-};
-
-
-// verifyOtpAndResetPassword
-export const verifyOtpAndResetPassword = async ({ otp, newPassword }: { otp: string; newPassword: string }) => {
-    const response = await fetch(`${API_BASE_URL}/api/auth/verify-otp-reset-password`, {
-         method: 'POST',
-         headers: {
-            "Content-Type": "application/json"
-         },
-         body: JSON.stringify({ otp, newPassword })
+export const addMyHotel = async (hotelFormData: FormData) =>{
+    const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+        method: "POST",
+        credentials:"include",
+        body: hotelFormData,
     });
 
-    const responseBody = await response.json();
-
-    if (!response.ok) {
-        throw new Error(responseBody.message);
+    if(!response.ok) {
+        throw new Error("Failed to add hotel");
     }
-    return responseBody;
-};
+    return response.json();
+
+}
+
+
+
+
+
+
+
+
 

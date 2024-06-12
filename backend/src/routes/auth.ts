@@ -59,4 +59,34 @@ router.post("/logout", (req: Request, res: Response)=>{
      res.send();
 })
 
+// send email link for reset password
+router.post("/sendpasswordlink", async (req, res) => {
+    try {
+        console.log(req.body);
+        const { email } = req.body;
+
+        // Placeholder logic for sending an email
+        // Assume the email sending is successful
+        res.status(201).json({ message: "Reset link sent successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Failed to send reset link" });
+    }
+});
+
+
+
+
 export default router;
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,10 +3,13 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Layout from "../layouts/Layout";
 import Register from './pages/Register';
 import SignIn from './pages/SignIn';
+import PasswordReset from './components/PasswordReset';
 import ForgotPassword from './components/ForgotPassword';
-import EnterOtp from './components/EnterOTP';
+import AddHotel from './pages/AddHotel';
+import { useAppContext } from './contexts/AppContext';
 
 const App = () => {
+  const {isLoggedIn} = useAppContext();
   return (
     <Router>
       <Routes>
@@ -14,8 +17,16 @@ const App = () => {
          <Route path="/search" element={<Layout><p>Search</p></Layout>}/>
          <Route path="/register" element={<Layout><Register/></Layout>}/>
          <Route path="/sign-in" element={<Layout><SignIn/></Layout>}/>
-         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/enter-otp" element={<EnterOtp />} />
+        <Route path="/password-reset" element={<PasswordReset />} />
+        <Route path="/forgotpassword/:id/:token" element={<ForgotPassword />} />
+        {isLoggedIn && (
+          <>
+           <Route path="/add-hotel"
+            element={
+            <Layout>
+              <AddHotel/>
+            </Layout>}/>
+        </>)}
          <Route path="*" element={<Navigate to="/"/>}/>
       </Routes>
     </Router>

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "react-query";
 import * as apiClient from '../api-client'
 import { useAppContext } from "../contexts/AppContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 export type SignInFormData = {
     email: string;
     password: string;
@@ -55,7 +55,9 @@ const SignIn = () =>{
                         Not Registered? <Link  className="underline" to="/register">Create an account here</Link>
                     </span>
                     <span className="text-sm">
-                    <Link className="underline"     to="/forgot-password">Forgot Password?</Link></span>
+                    {/* <Link className="underline"     to="/forgot-password">Forgot Password?</Link> */}
+                    <Link className="underline" to="/password-reset">Forgot Password?</Link>
+                    </span>
                     <button type="submit" className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl">Login</button>
                 </span>
         </form>
