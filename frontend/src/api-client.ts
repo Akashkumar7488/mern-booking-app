@@ -62,30 +62,30 @@ export const validateToken = async () => {
 };
 
 // Function to fetch with token, refresh if needed
-// export const fetchWithToken = async (url: string, options: RequestInit) => {
-//     let response = await fetch(url, options);
+export const fetchWithToken = async (url: string, options: RequestInit) => {
+    let response = await fetch(url, options);
   
-//     if (response.status === 401) {
-//       const refreshResponse = await fetch(`${API_BASE_URL}/api/auth/refresh-token`, {
-//         method: 'POST',
-//         credentials: 'include',
-//       });
+    if (response.status === 401) {
+      const refreshResponse = await fetch(`${API_BASE_URL}/api/auth/refresh-token`, {
+        method: 'POST',
+        credentials: 'include',
+      });
   
-//       if (refreshResponse.ok) {
-//         const data = await refreshResponse.json();
-//         const newToken = data.token;
+      if (refreshResponse.ok) {
+        const data = await refreshResponse.json();
+        const newToken = data.token;
   
-//         // Retry the original request with the new token
-//         options.headers = {
-//           ...options.headers,
-//           'Authorization': `Bearer ${newToken}`,
-//         };
-//         response = await fetch(url, options);
-//       } else {
-//         window.location.href = '/login';
-//       }
-//     }
-//   };
+        // Retry the original request with the new token
+        options.headers = {
+          ...options.headers,
+          'Authorization': `Bearer ${newToken}`,
+        };
+        response = await fetch(url, options);
+      } else {
+        window.location.href = '/login';
+      }
+    }
+  };
 
 
 
