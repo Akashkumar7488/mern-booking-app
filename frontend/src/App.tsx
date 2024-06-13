@@ -7,6 +7,7 @@ import PasswordReset from './components/PasswordReset';
 import ForgotPassword from './components/ForgotPassword';
 import AddHotel from './pages/AddHotel';
 import { useAppContext } from './contexts/AppContext';
+import MyHotels from './pages/MyHotels';
 
 const App = () => {
   const {isLoggedIn} = useAppContext();
@@ -25,6 +26,12 @@ const App = () => {
             element={
             <Layout>
               <AddHotel/>
+            </Layout>}/>
+
+            <Route path="/my-hotels"
+            element={
+            <Layout>
+              <MyHotels/>
             </Layout>}/>
         </>)}
          <Route path="*" element={<Navigate to="/"/>}/>
