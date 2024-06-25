@@ -6,10 +6,10 @@ const Header = () =>{
     const {isLoggedIn} = useAppContext();
     return (
         <>
-         <div className="w-full bg-blue-800 py-6">
+         <div className="w-full py-6" style={{backgroundColor:"#3D7EAA"}}>
             <div className="container mx-auto flex justify-between">
                 <span className="text-3xl text-white font-bold tracking-tight">
-                    <Link to="/">MernHoliday.com</Link>
+                    <Link to="/">TravelLookup.com</Link>
                 </span>
                 <span className="flex space-x-2">
                     {isLoggedIn ? (<>

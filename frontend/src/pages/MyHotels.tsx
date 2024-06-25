@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import * as apiClient from '../api-client'
 import {BsBuilding, BsMap} from "react-icons/bs"
 import {BiHotel, BiMoney, BiStar} from 'react-icons/bi'
+import logoImage from '../pages/111.jpg';
+
 const MyHotels = () =>{
     const {data: hotelData} = useQuery("fetchMyHotels", apiClient.fetchMyHotels, {
         onError: () => {},
@@ -15,6 +17,7 @@ const MyHotels = () =>{
        <div className="space-y-5">
         <span className="flex justify-between py-2">
             <h1 className="text-3xl font-bold">My Hotels</h1>
+            <img src={logoImage} alt="Logo" height={10} width={60}/>
             <Link to="/add-hotel" className="flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-500">Add Hotel</Link>
         </span>
         <div className="grid grid-cols-1 gap-8">
